@@ -1,0 +1,52 @@
+# Real IPsec lab: two strongSwan gateways (site A / site B) with a host behind each,
+# plus a passive "tap" container that captures the WAN segment with tcpdump.
+#
+#   host-a (10.1.0.10) -- gw-a [10.1.0.1 | 172.30.0.2] ==WAN== [172.30.0.3 | 10.2.0.1] gw-b -- host-b (10.2.0.10)
+#
+# Usage:  PROFILE=enterprise-default docker compose up -d
+#         ./scripts/run_matrix.sh      (iterates all profiles x traffic types)
+name: ipsec-lab
+services:
+  gw-a:
+    image: strongx509/strongswan:5.9.14
+    cap_add: [NET_ADMIN, SYS_MODULE]
+    sysctls: { net.ipv4.ip_forward: 1, net.ipv6.conf.all.forwarding: 1, net.ipv6.conf.all.disable_ipv6: 0 }
+    volumes:
+      - ./profiles/${PROFILE:-enterprise-default}/gw-a.swanctl.conf:/etc/swanctl/swanctl.conf:ro
+      - ./scripts:/scripts:ro
+    networks:
+      wan: { ipv4_address: 172.30.0.2, ipv6_address: "fd30::2" }
+      lan-a: { ipv4_address: 10.1.0.1, ipv6_address: "fd01::1" }
+  gw-b:
+    image: strongx509/strongswan:5.9.14
+    cap_add: [NET_ADMIN, SYS_MODULE]
+    sysctls: { net.ipv4.ip_forward: 1, net.ipv6.conf.all.forwarding: 1, net.ipv6.conf.all.disable_ipv6: 0 }
+    volumes:
+      - ./profiles/${PROFILE:-enterprise-default}/gw-b.swanctl.conf:/etc/swanctl/swanctl.conf:ro
+      - ./scripts:/scripts:ro
+    networks:
+      wan: { ipv4_address: 172.30.0.3, ipv6_address: "fd30::3" }
+      lan-b: { ipv4_address: 10.2.0.1, ipv6_address: "fd02::1" }
+  host-a:
+    image: nicolaka/netshoot:latest
+    command: ["sh", "-c", "ip route replace 10.2.0.0/16 via 10.1.0.1; ip -6 route replace fd02::/64 via fd01::1; sleep infinity"]
+    cap_add: [NET_ADMIN]
+    volumes: [ "./scripts:/scripts:ro" ]
+    networks: { lan-a: { ipv4_address: 10.1.0.10, ipv6_address: "fd01::10" } }
+  host-b:
+    image: nicolaka/netshoot:latest
+    command: ["sh", "-c", "ip route replace 10.1.0.0/16 via 10.2.0.1; ip -6 route replace fd01::/64 via fd02::1; /scripts/servers.sh; sleep infinity"]
+    cap_add: [NET_ADMIN]
+    volumes: [ "./scripts:/scripts:ro" ]
+    networks: { lan-b: { ipv4_address: 10.2.0.10, ipv6_address: "fd02::10" } }
+  tap:
+    image: nicolaka/netshoot:latest
+    network_mode: "service:gw-a"   # sees the gateway's WAN interface
+    cap_add: [NET_ADMIN, NET_RAW]
+    volumes: [ "./captures:/captures" ]
+    command: ["sleep", "infinity"]
+
+networks:
+  wan:   { enable_ipv6: true, ipam: { config: [ { subnet: 172.30.0.0/24 }, { subnet: "fd30::/64" } ] } }
+  lan-a: { enable_ipv6: true, ipam: { config: [ { subnet: 10.1.0.0/24 }, { subnet: "fd01::/64" } ] } }
+  lan-b: { enable_ipv6: true, ipam: { config: [ { subnet: 10.2.0.0/24 }, { subnet: "fd02::/64" } ] } }

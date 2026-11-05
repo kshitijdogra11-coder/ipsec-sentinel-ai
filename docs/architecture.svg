@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="960" height="420" fill="#0b1220"/>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#22d3ee"/></marker></defs>
+  <g font-size="13" fill="#e2e8f0">
+    <!-- inputs -->
+    <rect x="20" y="40" width="170" height="70" rx="10" fill="#131d33" stroke="#2a3a5e"/>
+    <text x="105" y="70" text-anchor="middle" font-weight="600">strongSwan lab /</text><text x="105" y="90" text-anchor="middle">tcpdump · Wireshark</text>
+    <rect x="20" y="140" width="170" height="70" rx="10" fill="#131d33" stroke="#2a3a5e"/>
+    <text x="105" y="170" text-anchor="middle" font-weight="600">Testbed generator</text><text x="105" y="190" text-anchor="middle">real ESP crypto</text>
+    <rect x="20" y="240" width="170" height="70" rx="10" fill="#131d33" stroke="#2a3a5e"/>
+    <text x="105" y="270" text-anchor="middle" font-weight="600">Upload (pcap/pcapng)</text><text x="105" y="290" text-anchor="middle">validated · AES-GCM at rest</text>
+    <!-- parser -->
+    <rect x="240" y="40" width="200" height="270" rx="10" fill="#0f1729" stroke="#22d3ee"/>
+    <text x="340" y="65" text-anchor="middle" font-weight="700" fill="#22d3ee">Protocol dissection</text>
+    <text x="260" y="100">• hardened pcap/pcapng reader</text>
+    <text x="260" y="125">• IKEv1 / IKEv2 dissector</text>
+    <text x="260" y="150">• ESP / AH / NAT-T SA tracking</text>
+    <text x="260" y="175">• replay &amp; SPI rotation</text>
+    <text x="260" y="200">• rekey-length PFS analysis</text>
+    <text x="260" y="225">• ESP-NULL trailer probe</text>
+    <text x="260" y="250">• cleartext / DNS leaks</text>
+    <!-- AI -->
+    <rect x="490" y="40" width="200" height="130" rx="10" fill="#0f1729" stroke="#a78bfa"/>
+    <text x="590" y="65" text-anchor="middle" font-weight="700" fill="#a78bfa">AI engine (RandomForest)</text>
+    <text x="510" y="95">• cipher family · ICV class</text>
+    <text x="510" y="120">• tunnel vs transport</text>
+    <text x="510" y="145">• traffic type in ESP</text>
+    <rect x="490" y="190" width="200" height="120" rx="10" fill="#0f1729" stroke="#f59e0b"/>
+    <text x="590" y="215" text-anchor="middle" font-weight="700" fill="#f59e0b">Security assessment</text>
+    <text x="510" y="243">• 8 weighted categories</text>
+    <text x="510" y="266">• NIST · RFC 8221/8247 · CNSA</text>
+    <text x="510" y="289">• threat matrix · STRIDE</text>
+    <!-- outputs -->
+    <rect x="740" y="40" width="200" height="130" rx="10" fill="#131d33" stroke="#2a3a5e"/>
+    <text x="840" y="70" text-anchor="middle" font-weight="600">React dashboard</text>
+    <text x="840" y="95" text-anchor="middle" fill="#94a3b8">score · risk · confidence</text>
+    <text x="840" y="118" text-anchor="middle" fill="#94a3b8">IKE timeline · SA table</text>
+    <text x="840" y="141" text-anchor="middle" fill="#94a3b8">traffic · compliance</text>
+    <rect x="740" y="190" width="200" height="120" rx="10" fill="#131d33" stroke="#2a3a5e"/>
+    <text x="840" y="220" text-anchor="middle" font-weight="600">Signed reports</text>
+    <text x="840" y="245" text-anchor="middle" fill="#94a3b8">Executive PDF</text>
+    <text x="840" y="268" text-anchor="middle" fill="#94a3b8">Technical PDF · JSON</text>
+    <text x="840" y="291" text-anchor="middle" fill="#94a3b8">HMAC-SHA256</text>
+  </g>
+  <g stroke="#22d3ee" stroke-width="2" marker-end="url(#a)">
+    <line x1="190" y1="75" x2="238" y2="120"/><line x1="190" y1="175" x2="238" y2="175"/><line x1="190" y1="275" x2="238" y2="230"/>
+    <line x1="440" y1="110" x2="488" y2="105"/><line x1="440" y1="250" x2="488" y2="250"/><line x1="590" y1="170" x2="590" y2="188"/>
+    <line x1="690" y1="105" x2="738" y2="105"/><line x1="690" y1="250" x2="738" y2="250"/>
+  </g>
+  <rect x="20" y="340" width="920" height="60" rx="10" fill="#0f1729" stroke="#2a3a5e"/>
+  <text x="480" y="365" text-anchor="middle" font-size="13" font-weight="700" fill="#34d399">Security layer</text>
+  <text x="480" y="387" text-anchor="middle" font-size="12" fill="#cbd5e1">Argon2id · HS512 JWT + revocation · RBAC · CSRF · lockout · rate-limit · CSP · AES-256-GCM evidence · hash-chained audit · model SHA-256 verification</text>
+</svg>

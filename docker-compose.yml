@@ -1,0 +1,16 @@
+services:
+  sentinel:
+    build: .
+    image: ipsec-sentinel:1.0
+    ports: ["8000:8000"]
+    environment:
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?set ADMIN_PASSWORD (>=12 chars, upper/lower/digit/symbol)}
+      SECRET_KEY: ${SECRET_KEY:-}
+      MAX_UPLOAD_MB: "200"
+    volumes: [ "sentinel-data:/data" ]
+    read_only: true
+    tmpfs: [ "/tmp" ]
+    security_opt: [ "no-new-privileges:true" ]
+    cap_drop: [ ALL ]
+volumes:
+  sentinel-data:

@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+body { @apply text-slate-200 antialiased; font-feature-settings: "cv11", "ss01"; }
+::selection { background: rgba(34, 211, 238, .3); }
+
+@layer components {
+  .card { @apply bg-ink-900/80 border border-ink-700/70 rounded-xl; }
+  .card-pad { @apply p-5; }
+  .btn { @apply inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn bg-cyan-500 text-ink-950 hover:bg-cyan-400; }
+  .btn-ghost { @apply btn border border-ink-600 text-slate-200 hover:bg-ink-800; }
+  .btn-danger { @apply btn border border-red-500/40 text-red-300 hover:bg-red-500/10; }
+  .input { @apply w-full rounded-lg bg-ink-950 border border-ink-600 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20; }
+  .label { @apply block text-xs font-medium uppercase tracking-wider text-slate-400 mb-1.5; }
+  .h-title { @apply text-xl font-semibold text-white tracking-tight; }
+  .muted { @apply text-slate-400; }
+  .chip { @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium; }
+  .th { @apply text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-3 py-2 border-b border-ink-700; }
+  .td { @apply px-3 py-2 border-b border-ink-800 text-sm align-top; }
+  .mono { @apply font-mono text-[12px]; }
+}
+
+.scroll-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+.scroll-thin::-webkit-scrollbar-thumb { background: #2a3a5e; border-radius: 8px; }
